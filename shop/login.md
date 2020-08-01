@@ -7,8 +7,6 @@
 - [登录模块](#登录模块)
   - [页面展示](#页面展示)
   - [函数及调用接口](#函数及调用接口)
-  - [标题二](#标题二)
-    - [标题二标题二](#标题二标题二)
 
 <!-- /TOC -->
 
@@ -17,16 +15,10 @@
 ![image](./images/login_pc.png)
 
 ## 函数及调用接口
+当前页面使用了vue.js
 
-功能/链接 | 作者 | 图片 
----|---|---
-Components: <br> [AutoshipConfirmationModal.vue](https://note.youdao.com/) | Benson | ![image](./images/login_pc.png)
+[Login.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/login/Login.vue)
 
-登录模块标题二登录模块标题二登录模块标题二登录模块标题二
-
-## 标题二
-标题二标题二标题二标题二标题二标题二标题二标题二标题二标题二
-
-
-### 标题二标题二
-标题二标题二标题二标题二标题二标题二标题二标题二标题二标题二标题二标题二
+- 当用户点击”登录“按钮后将触发 [handleLogin()](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/login/Login.vue#L101)函数
+- 函数先进行对用户输入的用户名与密码进行前端核验，如果符合条件就请求[登录接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/api/urls.js#L7)进行登录
+- 如果用户输入的用户名或密码不正确，则显示接口返回的错误信息
