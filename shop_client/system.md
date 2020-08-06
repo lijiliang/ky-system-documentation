@@ -39,3 +39,6 @@ kyani商城系统PC端是采用vue + vuex + vue-router + element-ui + webpack �
 ├── index.html                 // html模板
 └── package.json               // package.json
 ```
+
+## 前端架构及工程化图
+![image](./images/system.png)
