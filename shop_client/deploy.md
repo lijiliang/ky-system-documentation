@@ -5,9 +5,9 @@
 - [部署文档](#部署文档)
   - [开发环境](#开发环境)
   - [线上环境](#线上环境)
-  - [基于nginx部署](#基于nginx部署)
-  - [线上部署流程图](#线上部署流程图)
-  - [基于docker+jenkins+nginx部署](#基于dockerjenkinsnginx部署)
+    - [基于nginx部署](#基于nginx部署)
+    - [线上部署流程图](#线上部署流程图)
+    - [基于docker+jenkins+nginx部署](#基于dockerjenkinsnginx部署)
 
 <!-- /TOC -->
 
@@ -23,7 +23,7 @@ npm > v5
 npm install
 ```
 
-当前项目中所有用到的包以本地依赖的形式被安装到你的项目中，并且配置了如下的 npm scripts
+当前项目中所有用到的包以本地依赖的形式被安装到你的项目中，并且在`package.json`中配置了如下的 npm scripts
 
 ```bash
 {
@@ -44,9 +44,9 @@ npm run dev
 
 ## 线上环境
 
-## 基于nginx部署
+### 基于nginx部署
 
-## 线上部署流程图
+### 线上部署流程图
 ![image](./images/ci2.jpg)
 
-## 基于docker+jenkins+nginx部署
+### 基于docker+jenkins+nginx部署
