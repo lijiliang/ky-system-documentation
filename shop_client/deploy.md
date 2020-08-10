@@ -203,4 +203,5 @@ cp -rf /data/www/shop_pc_clinet/bin/nginx.prod.conf /usr/local/nginx/conf/nginx.
 基于以上脚本再配合`jenkins`的配置，即可快速部署kyani商城系统。
 
 最后附上详细的部署流程图
+
 ![image](images/ci1.png)
