@@ -13,7 +13,7 @@ npm > v5
   - [开发环境](#开发环境)
   - [线上环境](#线上环境)
     - [基于nginx部署](#基于nginx部署)
-    - [基于docker+jenkins+nginx部署](#基于dockerjenkinsnginx部署)
+    - [基于docker+jenkins+nginx自动化部署](#基于dockerjenkinsnginx自动化部署)
       - [简要部署流程图](#简要部署流程图)
 
 <!-- /TOC -->
@@ -112,7 +112,13 @@ http {
 
  ```
 
-### 基于docker+jenkins+nginx部署
+### 基于docker+jenkins+nginx自动化部署
+
+基于nginx部署的方案是需要我们先在本地构建好`dist`文件，然后再通过某种方式放到服务器上。这种方式就有些过于繁琐。所以建议使用基于docker+jenkins+nginx自动化部署的方案。
+
+这种方式只需要开发者将代码push到git,git的webhook会自动触发jenkins服务进行包安装，然后进行自动打包，打好包后jenkins会在服务器上根据脚本自动创建好docker容器。
 
 #### 简要部署流程图
+
 ![image](./images/ci2.jpg)
+
