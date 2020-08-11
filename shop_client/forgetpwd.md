@@ -28,4 +28,4 @@
   - 如果全部正确则通过接口获致验证码发送到手机，输入短信验证码后进去下一步
 
 ### 2、完成
-  - 通过前面的步骤，再输入新密码即可点击`完成`按钮,通过[submitForm](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountForgetpwd.vue#L144)函数将数据post到后台，将由后台返回是否成功修改的标识。
+  - 通过前面的步骤，再输入新密码即可点击`完成`按钮，通过调用[submitForm](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountForgetpwd.vue#L144)函数对数据进行验证，数据全部正确通过post到后台，将由后台返回是否成功修改的标识。
