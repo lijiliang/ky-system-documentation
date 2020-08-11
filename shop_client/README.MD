@@ -5,4 +5,5 @@
 - [首页模块](./index.md)
 - [商品列表页模块](./shop_list.md)
 - [商品详情页模块](./shop_detail.md)
+- [忘记密码模块](./forgetpwd.md)
 - [登录模块](./login.md)
