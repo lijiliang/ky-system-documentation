@@ -24,8 +24,8 @@
 ## 功能介绍
 
 ### 1、获取短信验证码 
-  - 点击此按钮调用[handleGetCaptcha](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountForgetpwd.vue#191)函数对用户输入的用户名和手机号进行验证
+  - 点击此按钮调用[handleGetCaptcha](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountForgetpwd.vue#L191)函数对用户输入的用户名和手机号进行验证
   - 如果全部正确则通过接口获致验证码发送到手机，输入短信验证码后进去下一步
 
 ### 2、完成
-  - 通过前面的步骤，再输入新密码即可点击`完成`按钮,通过[submitForm](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountForgetpwd.vuee#144)函数将数据post到后台，将由后台返回是否成功修改的标识。
+  - 通过前面的步骤，再输入新密码即可点击`完成`按钮,通过[submitForm](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountForgetpwd.vue#L144)函数将数据post到后台，将由后台返回是否成功修改的标识。
