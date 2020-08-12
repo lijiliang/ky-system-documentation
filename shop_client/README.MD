@@ -7,3 +7,5 @@
 - [商品详情页模块](./shop_detail.md)
 - [忘记密码模块](./forgetpwd.md)
 - [登录模块](./login.md)
+- [会员注册模块](./regmember.md)
+- [消费者注册模块](./regconsumer.md)
