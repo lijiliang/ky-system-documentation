@@ -8,6 +8,8 @@
   - [页面初始化](#页面初始化)
   - [功能介绍](#功能介绍)
     - [1、下一步](#1下一步)
+  - [选择套组](#选择套组)
+  - [确认订单及填写收货地址](#确认订单及填写收货地址)
 
 <!-- /TOC -->
 
@@ -22,7 +24,7 @@
 
 当前模块代码位于[AccountRegmember.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegmember.vue)
 
-注册会员需要先在`vuex`里定义基础数据，方便在其它页面可以用。
+注册会员需要先在`vuex`里定义基础数据。
 
 在[account.js](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/store/modules/account.js)定义vuex数据
 ```js
@@ -65,7 +67,7 @@ const account = {
 export default account
 ```
 
-需要在`store/index`里引入该文件，这样全部页面都可以用得到该数据了
+需要在`store/index`里引入该文件
 ```js
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -97,4 +99,24 @@ created() {
   - 点击此按钮调用[submitForm](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegmember.vue#L362)函数对用户输入的所有字段进行验证
 
   - 如果全部正确则通过调用[_checkDealerReg](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegmember.vue#L375)验证用户输入的信息，接口用的是[CheckDealerReg](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/api/urls.js#L18)，信息正确页面自动跳到下一步的`选购加入套组`
+  
   - 验证完成后将数据保存到本地`Session Storage`和`Vuex`,执行的函数是[_saveAccountLocal](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegmember.vue#L447)。保存好数据，这样其它页面就可以共用数据。
+
+## 选择套组
+
+页面展示
+
+![image](./images/regmember_step2.png)
+
+在页面创建时生命周期`created`调用函数[getGroupReg](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegselectpack.vue#L92)获取套组列表数据后并渲染到页面上
+
+点击`选择此套组`按钮调用函数[handleSelectBtn](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegselectpack.vue#L108)选取后会跳转到订单结算页
+
+想更改当前选择的套组，直接切换自己想要购买的套组即可
+
+## 确认订单及填写收货地址
+
+页面展示
+![image](./images/regmember_step3_1.png)
+![image](./images/regmember_step3_2.png)
+
