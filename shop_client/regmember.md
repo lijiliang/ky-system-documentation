@@ -10,6 +10,10 @@
     - [1、下一步](#1下一步)
   - [选择套组](#选择套组)
   - [确认订单及填写收货地址](#确认订单及填写收货地址)
+    - [引用组件](#引用组件)
+    - [订购人信息](#订购人信息)
+    - [收货信息](#收货信息)
+    - [立即结算](#立即结算)
 
 <!-- /TOC -->
 
@@ -104,6 +108,8 @@ created() {
 
 ## 选择套组
 
+当前模块代码位于[AccountRegselectpack.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegselectpack.vue)
+
 页面展示
 
 ![image](./images/regmember_step2.png)
@@ -116,7 +122,51 @@ created() {
 
 ## 确认订单及填写收货地址
 
+当前模块代码位于[AccountRegorder.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegorder.vue)
+
+### 引用组件
+
+```js
+  import KyOrderLayout from '@/components/business/KyOrderLayout'
+  import KyOrderside from '@/components/business/KyOrderside'
+  import KyDeliveryOrder from '@/components/business/KyDeliveryOrder'
+  import KySuitInfo from '@/components/business/KySuitInfo'
+```
+
 页面展示
 ![image](./images/regmember_step3_1.png)
 ![image](./images/regmember_step3_2.png)
+
+
+确认订单及填写收货地址主要有`订购人信息`、`收货信息`和`立即结算按钮`
+
+当面页面需要通过调用函数[getCartOrderData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegorder.vue#L717)获取获取订单数据
+
+这些所有的资料都是在用户输入的表单自动生成的，如用户需要更改信息，可在当前页面进行修改即可。最终提交的资料会以当前页面的为准。
+
+
+### 订购人信息
+函数[getCartOrderData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegorder.vue#L717)获取获取订单数据，会返回订购人年额度已用免税金额，利用这个金额跟年额度提示信息可在页面显示当前订购人的已用免税金额。
+
+用户需要更改订购人信息，直接在当面表单直接修改即可，修改完会调用[checkYearAmount](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegorder.vue#L540)函数实时去验证用户所填的订购人是否满足年额度需求
+
+### 收货信息
+收货信息是根据用户在第一步表单提交时自动生成的数据。页面定义数据如下：
+
+```js
+// 收货信息表单数据
+receiptRuleForm: {
+  consigneeName: '', // 收货人姓名
+  idCard: '', // 身份证号码
+  phoneNumber: '', // 手机号
+  telNumber: '', // 固定电话
+  postcode: '', // 邮政编码
+  cityValue: [], // 省市区数据
+  addrDetail: '' // 详细地址
+}
+```
+
+用户需要更改收货信息，可在右上角点击`修改`按钮，将弹出修改收货地址的弹出框，输入想要修改的内容后点击`保存`即可
+
+### 立即结算
 
