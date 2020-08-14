@@ -170,3 +170,6 @@ receiptRuleForm: {
 
 ### 立即结算
 
+在页面的右侧可以看到用户选择当前套组的价格信息，在最右下角有一个`立即结算`按钮，立即结算按钮将触发[handleSettleNow](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/account/AccountRegorder.vue#L795)函数，该函数将用户的信息整理好并按照一定的格式提交到后台接口,api用的是[UserDealer](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/api/urls.js#L9),当接口返回成功的数据后，自动帮助用户登录、清空用户填写的资料。并跳转到支付网关让用户进行支付
+
+用户支付完成或未完成都会返回支付结果页，在支付结果页可以看到自己的用户帐号和支付金额等信息
