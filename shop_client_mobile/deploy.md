@@ -179,6 +179,10 @@ http {
 ```bash
 #!/usr/bin/env bash
 
+# 第一次构建时需要添加 ip 段
+#docker network create --subnet=192.168.1.0/24 prodnet #创建网络时指定 IP 段
+#docker network rm prodnet
+
 sudo docker stop shop_mobile_clinet_7000
 sudo docker rm shop_mobile_clinet_7000
 sudo docker run --privileged=true  -t -i -d -v /data:/data -p 7000:80  --name=shop_mobile_clinet_7000  --network prodnet --ip 192.168.1.10 557111830783.dkr.ecr.cn-north-1.amazonaws.com.cn/os_nginx:latest /bin/bash -c "/data/www/shop_mobile_clinet/bin/run-prod.sh"
