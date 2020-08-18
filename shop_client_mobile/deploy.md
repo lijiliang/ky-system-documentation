@@ -179,9 +179,9 @@ http {
 ```bash
 #!/usr/bin/env bash
 
-sudo docker stop shop_mobile_clinet_7001
-sudo docker rm shop_mobile_clinet_7001
-sudo docker run --privileged=true  -t -i -d -v /data:/data -p 7001:80  --name=shop_mobile_clinet_7001  --network prodnet --ip 192.168.1.11 557111830783.dkr.ecr.cn-north-1.amazonaws.com.cn/os_nginx:latest /bin/bash -c "/data/www/shop_mobile_clinet/bin/run-prod.sh"
+sudo docker stop shop_mobile_clinet_7000
+sudo docker rm shop_mobile_clinet_7000
+sudo docker run --privileged=true  -t -i -d -v /data:/data -p 7000:80  --name=shop_mobile_clinet_7000  --network prodnet --ip 192.168.1.10 557111830783.dkr.ecr.cn-north-1.amazonaws.com.cn/os_nginx:latest /bin/bash -c "/data/www/shop_mobile_clinet/bin/run-prod.sh"
 
 sudo docker stop kyani_shop_nginx_forwarding_80
 sudo docker rm kyani_shop_nginx_forwarding_80
