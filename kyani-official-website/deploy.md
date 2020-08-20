@@ -178,10 +178,6 @@ http {
 }
 
 ```
-nginx配置参考链接
-https://blog.csdn.net/kefengwang/article/details/54233554
-
-https://blog.csdn.net/shiyong1949/article/details/78439293
 
 ### 启动网站
 到网站根目录下执行
