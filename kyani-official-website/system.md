@@ -36,6 +36,7 @@ Kyani官网是支持响应式布局的，在pc端跟手机端均能完美支持�
     - [method](#method)
     - [isAuthenticated](#isauthenticated)
     - [noContactToRoute](#nocontacttoroute)
+  - [架构及工程化图](#架构及工程化图)
 
 <!-- /TOC -->
 
@@ -501,3 +502,6 @@ ctx.setState(ctx);
 
 每个请求都会经过```/server/middleware/state-context.js```中间件.但只会匹配不带/api的页面路由.    
 noContactToRoute:true表示不经过这个中间件.因为```state-context```中间件根据ctx.router判断.
+
+## 架构及工程化图
+![image](./images/system.png)
