@@ -39,6 +39,8 @@ mvn -version
 
 更新在需要部署的环境，如正式环境 `application-pro.properties`
 ``` bash
+# 启动端口
+server.port=80
 # 数据库配置
 spring.datasource.url=jdbc:mysql://kstore.cquty2mjj1ug.rds.cn-north-1.amazonaws.com.cn:3306/kyani?useUnicode=true&characterEncoding=UTF-8&relaxAutoCommit=true&zeroDateTimeBehavior=convertToNull
 spring.datasource.username=*** DB USER Name ***
