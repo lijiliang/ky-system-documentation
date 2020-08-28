@@ -9,3 +9,5 @@
 - [登录模块](./login.md)
 - [会员注册模块](./regmember.md)
 - [消费者注册模块](./regconsumer.md)
+- [快速下单模块](./quickorder.md)
+- [购物车模块](./cart.md)
