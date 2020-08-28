@@ -1,6 +1,10 @@
 # 购物车模块
 
-购物车
+购物车是用户下单的集合点，用户所有加入的商品都在购物车中。
+
+购物车我们需要实现的功能有哪些呢？
+
+展示购物车列表、向购物车列表中添加商品（add）、修改购物车列表中商品的数量、删除列表中的商品
 
 <!-- TOC -->
 
@@ -20,18 +24,20 @@
 
 ## 页面展示
 
-![image](./images/home_top.png)
-![image](./images/home_list.png)
+![image](./images/cart.png)
 
 ## Components
-[slickSlide.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/home/components/slickSlide.vue)
+[KyOrderside.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/components/business/KyOrderside/index.vue)
 
-[ProductList.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/product/components/ProductList.vue)
+[KyOrderLayout.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/components/business/KyOrderLayout/index.vue)
 
 ## 函数及调用接口
-当前页面使用了vue.js
 
-[Home.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/home/Home.vue)
+购物车列表页
+[CartIndex.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartIndex.vue)
+
+购物车-核对订单页
+[CartOrder.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartOrder.vue)
 
 在Vue页面创建 `created` 时调用 [getHomeData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/home/Home.vue#L96) 获取到页面的banner跟商品列表数据后并渲染到页面上
 
