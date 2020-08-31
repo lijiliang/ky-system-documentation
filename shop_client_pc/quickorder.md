@@ -1,10 +1,10 @@
 # 快速下单模块
 
-快速下单是用户下单的集合点，用户所有加入的商品都在购物车中。当前页面是需要用户先登录才能进到购物车列表页
+快速下单是商城所有商品的集合点，全部的商品都在这个页面当中。当前页面是需要用户先登录才能进到快速下单页
 
-购物车我们需要实现的功能有如下功能点：
+快速下单我们需要实现的功能有如下功能点：
 
-展示购物车列表、向购物车列表中添加商品（add）、修改购物车列表中商品的数量、删除列表中的商品
+向购物车加入商品
 
 <!-- TOC -->
 
@@ -22,7 +22,6 @@
 
 ## 页面展示
 
-![image](./images/cart.png)
 
 ## Components
 [KyOrderside.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/components/business/KyOrderside/index.vue)
