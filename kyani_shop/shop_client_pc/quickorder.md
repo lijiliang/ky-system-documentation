@@ -16,7 +16,7 @@
   - [函数及调用接口](#函数及调用接口)
   - [功能介绍](#功能介绍)
     - [1、快速下单加减功能](#1快速下单加减功能)
-    - [2、立即结算](#2立即结算)
+    - [2、去购物车结算](#2去购物车结算)
 
 <!-- /TOC -->
 
@@ -73,12 +73,12 @@ mounted() {
   },
 ```
 
-### 2、立即结算
-- 立即结算是由[handleBtnSettlement](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/QuickOrder.vue#L221)函数实现。该函数会筛选出选中的所有购物车列表id，然后根据所选的购物车列表id去及sku列表信息去提交数据。
-- 数据提交正确后页面会跳到[核对订单页模块](./order.md)
+### 2、去购物车结算
+- 2、去购物车结算是由[handleBtnSettlement](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/QuickOrder.vue#L221)函数实现。该函数会筛选出选中的所有购物车列表id，然后根据所选的购物车列表id去及sku列表信息去提交数据。
+- 数据提交正确后页面会跳到[购物车模块](./card.md)
 
 ```js
-// 立即结算
+// 去购物车结算
 handleBtnSettlement() {
   const _cartIds = this.checkedcartList
   const _cartList = [...this.groupList, ...this.singleList, ...this.domesticList]
