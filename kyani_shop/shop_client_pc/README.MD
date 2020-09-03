@@ -11,3 +11,4 @@
 - [消费者注册模块](./regconsumer.md)
 - [快速下单模块](./quickorder.md)
 - [购物车模块](./cart.md)
+- [核对订单页模块](./order.md)
