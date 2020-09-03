@@ -1,10 +1,7 @@
 # 核对订单页模块
+核对订单页是购物车页跳转过来的，当前页面可以看到最终的商品订单内容
 
-购物车是用户下单的集合点，用户所有加入的商品都在购物车中。当前页面是需要用户先登录才能进到购物车列表页
-
-购物车我们需要实现的功能有如下功能点：
-
-展示购物车列表、向购物车列表中添加商品（add）、修改购物车列表中商品的数量、删除列表中的商品
+用户可以在这里添加、修改及选择收货信息，可以查看送货清单内容及所有的订单拆单信息。
 
 <!-- TOC -->
 
@@ -29,29 +26,25 @@
 
 [KyOrderLayout.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/components/business/KyOrderLayout/index.vue)
 
-## 函数及调用接口
+核对订单页分别引用了以下几个组件
 
-购物车列表页
-[CartIndex.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartIndex.vue)
+```js
+import KyOrderside from '@/components/business/KyOrderside'
+import KyOrderLayout from '@/components/business/KyOrderLayout'
+import KyDeliveryOrder from '@/components/business/KyDeliveryOrder'
+import kyAddressDialog from '@/components/business/kyAddressDialog'
+```
+
+## 函数及调用接口
 
 购物车-核对订单页
 [CartOrder.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartOrder.vue)
 
-在Vue页面创建 `created` 时调用 [getCartList](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartIndex.vue#L179) 根据用户token获取到当前用户的购物车列表数据后并渲染到页面上
+在Vue页面创建 `created` 时调用 [getCartOrderData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartOrder.vue#L465) 根据用户token获取到当前用户的获取订单数据后并渲染到页面上
 
-`getCartList`是通过[CartList接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/api/urls.js#L23)获取数据
+`getCartOrderData`是通过[OrderPreview接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/api/urls.js#L29)获取数据
 
-先在定义全局`store`数据
-```js
-const cart = {
-  state: {
-    cartCount: 0, // 购物车总数
-    cartIds: getCartIds() || [], // 购物车id
-    cartSkuList: getCartSkuList() || [], // 下单sku列表
-    cartTradeNo: getCartTradeNo() || '' // 下单成功后的订单id,用于返回支付结果页
-  }
-}
-```
+
 ## 功能介绍
 
 ### 1、购物车加减功能
