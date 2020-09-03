@@ -1,31 +1,31 @@
 # 部署文档
 - [部署文档](#部署文档)
-  - [环境要求](#环境要求)
-  - [打包](#打包)
-  - [Nginx部署](#nginx部署)
+	- [环境要求](#环境要求)
+	- [打包](#打包)
+	- [Nginx部署](#nginx部署)
 
 ## 环境要求
 Java Run-time Environment or JDK
-```bash
+```
 https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
 ```
 Ruby
-```bash
+```
 http://rubyinstaller.org/downloads
 ```
 Sencha Cmd 6.2或以上 
-```bash
+```
 https://www.sencha.com/products/extjs/cmd-download/
 ```
 Nginx
-```bash
+```
 yum install nginx
 ```
 ## 打包
 修改调用Api路径，设置要指向的环境：
 
 KYANI-STARS-CHINA/app/base/common/Config.js
-``` bash
+```javascript
 # 将domain指向要部署的环境路径，如 domain:servers.pro
 Ext.define("Kyani.stars.base.common.Config",{
 	alternateClassName:"CFG",
