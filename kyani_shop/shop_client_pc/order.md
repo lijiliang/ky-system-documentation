@@ -10,9 +10,9 @@
   - [Components](#components)
   - [函数及调用接口](#函数及调用接口)
   - [功能介绍](#功能介绍)
-    - [1、购物车加减功能](#1购物车加减功能)
-    - [2、删除商品功能](#2删除商品功能)
-    - [3、单选、多选和全选功能](#3单选多选和全选功能)
+    - [1、订购人信息](#1订购人信息)
+    - [2、收货人信息](#2收货人信息)
+    - [3.送货清单](#3送货清单)
     - [4、立即结算](#4立即结算)
 
 <!-- /TOC -->
@@ -42,56 +42,61 @@ import kyAddressDialog from '@/components/business/kyAddressDialog'
 
 在Vue页面创建 `created` 时调用 [getCartOrderData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartOrder.vue#L465) 根据用户token获取到当前用户的获取订单数据后并渲染到页面上
 
+通过[getAddressList](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartOrder.vue#L312)获取收货地址列表数据并渲染到页面上
+
 `getCartOrderData`是通过[OrderPreview接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/api/urls.js#L29)获取数据
 
 
 ## 功能介绍
 
-### 1、购物车加减功能
+### 1、订购人信息
  
-- 购物车加减是通过函数[handleChangeQuantity](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartIndex.vue#L201)实现
-- 用户按下按钮会post请求后台接口加入购物车，通过接口返回的列表数据进行渲染购物车列表，并重新计算用户选择的商品的金额总数及积分信息
+- 订购人信息是需要跨镜商品才会显示出来。这里可以修改订购人的信息，修改完会实时验证并显示当前订购人所剩余的年额度
 
-### 2、删除商品功能
-
-- 删除商品是通过[handleDeleteCartId](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartIndex.vue#L220)函数实现
-- 该函数需要传入需要删除的商品Id,通过商品id去请求后台数据，即可成功删除商品。删除完商品重新获取一下购物车列表接口重新渲染购物车列表
-
-### 3、单选、多选和全选功能
-- 单选及多选是通过[handleCheckedcartListChange](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartIndex.vue#L171)函数实现，该函数需要传当前购物车的id进行选择商品。选择完后调用计算价格总数函数进行总数及价格的计算。
-  
-  功能实现如下：
+  需要定义订购人显示的一些基本信息
   ```js
-    handleCheckedcartListChange(value) {
-        this.checkAll = checkedCount === this.cartList.length
-        this.isIndeterminate = checkedCount > 0 && checkedCount < this.cartList.length
-
-        this._computedTotal()
-    },
-  ```
-  - 全选是通过[handleCheckAllChange](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartIndex.vue#L156)函数实现。
-  - 全选是函数是先判断如果已经有一个商品选择了，则那么就全部选中。如果全部选中了，则会是取消全选
-
-  ```js
-  // 全选
-    handleCheckAllChange(val) {
-      const selectList = []
-      const _cartList = this.cartList
-      for (let i = 0; i < _cartList.length; i++) {
-        // 如果商品已经下架，则不需要选中
-        if (_cartList[i].isSales) {
-          selectList.push(_cartList[i].id)
-        }
+    data() {
+      return {
+        yearLimit: '', // 年度免税额度
+        yearLimitErrMessage: '', // 年度免税额度错误信息
       }
-      this.checkedcartList = val ? selectList : []
-      this.isIndeterminate = false
-
-      this._computedTotal()
     }
   ```
+  
+- 验证订购人年度已用免税金额的函数是[checkYearAmount](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartOrder.vue#L266)
+
+### 2、收货人信息
+  - 收货人信息默认会显示出当前用户的所有收货地址列表。也可以在这里进去添加地址、删除地址、修改地址
+  - 默认会提示用户去选择收货地址，必须选择了收货地址才能提交订单
+  
+### 3.送货清单
+  - 送货清单个显示出所有商品的详情信息
+  - 系统会将当前用户的订单自动拆单成不同订单类型并显示在页面上。
 
 ### 4、立即结算
-- 立即结算是由[handleBtnSettlement](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartIndex.vue#L280)函数实现。该函数会筛选出选中的所有购物车列表id，然后根据所选的购物车列表id去及sku列表信息去提交数据到后端api接口。
-- 后台接口返回数据正确后则自己跳转到购物车订单核对页。
+- 立即结算是由[handleSettleNow](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/cart/CartOrder.vue#L570)函数实现。该函数会验证用户的所有信息
+- 需要提交的信息如下：
+  ```js
+    let _data = {
+      buyProducts: this.$store.state.cart.cartSkuList, // 下单产品：id、sku、
+      shoppingCartIds: this.$store.state.cart.cartIds, // 购物车ID组
+      couponCode: this.couponCode, // 优惠券码 ,
+      orderLogistics: { // 收货人信息
+        'consigneeAddressProvince': shippingAddress.addrPrivonceName,
+        'consigneeAddressCity': shippingAddress.addrCityName,
+        'consigneeAddressCounty': shippingAddress.addrCountyName,
+        'consigneeAddressDetail': shippingAddress.addrDetail,
+        'consigneeAddressZipCode': shippingAddress.postcode,
+        'consigneeIDCardNumber': shippingAddress.idCard,
+        'consigneeName': shippingAddress.consignee,
+        'consigneePhoneNumber': shippingAddress.phoneNumber
+      },
+      // 以下为订购人信息
+      buyerRealName,
+      buyerIdCard,
+      buyerMobile
+    }
+  ```
+  - 通过[下单接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/api/urls.js#L30)提交数据给后端，由后端处理后返回相关数据。
 
-
+  - 返回正确的数据会自动跳转到支付系统进行支付
