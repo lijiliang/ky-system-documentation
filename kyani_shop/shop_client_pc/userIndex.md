@@ -58,9 +58,8 @@ export const constantRouterMap = [
 用户中心页能显示`用户信息`和`我的订单`
 
 ### 用户信息
-- 当用户点击”登录“按钮后将触发 [handleLogin()](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/login/Login.vue#L101)函数
-- 函数先进行对用户输入的用户名与密码进行前端核验，不符合条件前端有相应的错误提示。如果符合条件就请求[登录接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/api/urls.js#L7)进行登录
-- 如果用户输入的用户名或密码不正确，则显示接口返回的错误信息
+- 用户信息通过调用[getData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/user/UserIndex.vue#L66) 获取到当前用户信息的数据并显示在到页面上。
+- 主要显示的信息有：会员号、身份证号、名字、手机号和邮箱
 
 ### 我的订单
-- 用户选择`记住帐号`后第二次用上次相同的浏览器打开当前页会自动会员号显示出来
+- 我的订单主要是快捷链接到订单列表页，主要有：待处理、已完成、已取消、已退单的各订单状态的订单列表页。
