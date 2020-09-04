@@ -42,7 +42,8 @@ make
 make install
 #启动
 cd /usr/local/nginx/sbin
-& ./nginx
+
+./nginx &
 ```
 ## 配置参数
 系统配置文件目录：
