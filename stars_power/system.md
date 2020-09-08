@@ -37,4 +37,4 @@ Stars power是基于Spring Boot开发的综合管理平台。它是所有China s
 ```
 
 ## 系统架构及工程化图
-![image](./images/StarsPower-architecture-diagrams.jpg)
+![image](./images/StarsPower_architecture.png)
