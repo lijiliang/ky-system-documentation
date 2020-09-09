@@ -72,19 +72,20 @@ export const constantRouterMap = [
   ```
 
   - 根据api数据返回页面信息，逻辑判断如下，根据不同的`stepsActive`显示相对应的状态
+  
   ```js
-  if (createTime) {
-    this.stepsActive = 1
-  }
-  if (createTime && paymentTime) {
-    this.stepsActive = 2
-  }
-  if (createTime && paymentTime && deliveryTime) {
-    this.stepsActive = 3
-  }
-  if (createTime && paymentTime && deliveryTime && completeTime) {
-    this.stepsActive = 4
-  }
+    if (createTime) {
+      this.stepsActive = 1
+    }
+    if (createTime && paymentTime) {
+      this.stepsActive = 2
+    }
+    if (createTime && paymentTime && deliveryTime) {
+      this.stepsActive = 3
+    }
+    if (createTime && paymentTime && deliveryTime && completeTime) {
+      this.stepsActive = 4
+    }
   ```
 
 ### 其它信息
