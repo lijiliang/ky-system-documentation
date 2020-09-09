@@ -1,8 +1,6 @@
 # 订单详情模块
 
-我的订单列表页主要是展示用户下单的所有订单列表。主要的状态有：待处理、已完成、已取消、已退单
-
-不同的状态切换需要在路由上进行体现如：`/user/order/?type=1`，type值为1代表待处理，2为已完成，3为已取消，4为已退单
+订单详情主要是显示订单的所有信息，包括：当前状态、订购人信息、收货人信息、商品清单、付款信息
 
 <!-- TOC -->
 
@@ -11,12 +9,13 @@
   - [函数及调用接口](#函数及调用接口)
   - [功能介绍](#功能介绍)
     - [订单状态](#订单状态)
+    - [其它信息](#其它信息)
 
 <!-- /TOC -->
 
 ## 页面展示
 
-![image](./images/userOrder.png)
+![image](./images/userOrderDetail.png)
 
 ## 函数及调用接口
 
@@ -48,41 +47,45 @@ export const constantRouterMap = [
 ]
 ```
 
-[UserOrder.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/user/UserOrder.vue)
+[UserOrderview.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/user/UserOrderview.vue)
 
 在Vue页面 `methods` 生命周期钩子时分别调用以下几个函数：
-- [getList](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/user/UserOrder.vue#L285) 获取到当前用户订单的数据后并渲染到页面上。
+- [getOrderViewData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/user/UserOrderview.vue#L267) 获取到当前用户订单的数据后并渲染到页面上。
 
-初始化定义如下
-```js
-mounted() {
-  const { type } = this.$route.query
-  if (type === '1' || type === '2' || type === '3' || type === '4') {
-    this.activeName = type
-    this.type = type
-  } else {
-    this.activeName = '0'
-    this.type = '0'
-  }
-  this.getList()
-}
-```
+`handleGetOrderView`是通过[OrderView接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/api/urls.js#L37)获取数据
 
-`getList`是通过[OrderList接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/api/urls.js#L36)获取数据
 
 ## 功能介绍
 
 ### 订单状态
-  - 每笔订单都会有相对应的状态。分别有如下状态：去支付、取消订单、申请退款、退款详情、申请退货、退货详情、重新下单
+  - 每笔订单都会有相对应的状态。分别有如下状态：已下单、已付款、已发货、已完成
 
   - 状态会根据api返回的数据根据规则显示不同的状态，在前端页面的判断如下。
 
   ```html
-    <el-button plain v-if="item.permitPayment" type="danger" @click="handlePayAgain(item.number)">&nbsp;去支付&nbsp;</el-button>
-    <el-button plain v-if="item.permitCancel" @click="handleCancelType(item.number)">取消订单</el-button>
-    <el-button plain type="primary" v-if="item.permitRefund" @click="handleGoPage('/user/refund', item.number)">申请退款</el-button>
-    <el-button type="primary" v-if="item.permitRefundDetail"  @click="handleGoPage('/user/refundview', item.number)">退款详情</el-button>
-    <el-button plain type="primary" v-if="item.permitReturnGoods"  @click="handleGoPage('/user/return', item.number)">申请退货</el-button>
-    <el-button type="primary" v-if="item.permitReturnGoodsDetail"  @click="handleGoPage('/user/returnview', item.number)">退货详情</el-button>
-    <el-button type="primary" plain v-if="item.permitReOrder"  @click="handleGoPageReorder('/account/regmember?reorder=true')">重新下单</el-button>
+    <el-steps :active="stepsActive" align-center class="order-steps">
+      <el-step title="已下单" :description="steps.createTime"></el-step>
+      <el-step title="已付款" :description="steps.paymentTime"></el-step>
+      <el-step title="已发货" :description="steps.deliveryTime"></el-step>
+      <el-step title="已完成" :description="steps.completeTime"></el-step>
+    </el-steps>
   ```
+
+  - 根据api数据返回页面信息，逻辑判断如下，根据不同的`stepsActive`显示相对应的状态
+  ```js
+  if (createTime) {
+    this.stepsActive = 1
+  }
+  if (createTime && paymentTime) {
+    this.stepsActive = 2
+  }
+  if (createTime && paymentTime && deliveryTime) {
+    this.stepsActive = 3
+  }
+  if (createTime && paymentTime && deliveryTime && completeTime) {
+    this.stepsActive = 4
+  }
+  ```
+
+### 其它信息
+  - 订购人信息、收货人信息、商品清单、付款信息是根据api返回的数据直接显示在页面上
