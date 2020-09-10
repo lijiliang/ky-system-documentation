@@ -16,4 +16,5 @@
 ## 会员中心模块
 - [会员中心首页](./userIndex.md)
 - [会员中心 - 我的订单](./userOrder.md)
-- [会员中心  - 订单详情](./userOrderDetail.md)
+- [会员中心 - 订单详情](./userOrderDetail.md)
+- [会员中心 - 帐户信息](./userBasicinfo.md)
