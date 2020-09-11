@@ -18,3 +18,5 @@
 - [会员中心 - 我的订单](./userOrder.md)
 - [会员中心 - 订单详情](./userOrderDetail.md)
 - [会员中心 - 帐户信息](./userBasicinfo.md)
+- [会员中心 - 帐户安全](./userSafety.md)
+- [会员中心 - 收货地址](./userAddress.md)
