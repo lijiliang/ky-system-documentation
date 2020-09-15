@@ -20,22 +20,20 @@
 
 ## 页面展示
 
-![image](./images/home_top.png)
-![image](./images/home_list.png)
+![image](./images/home.png)
 
 ## Components
-[slickSlide.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/home/components/slickSlide.vue)
 
-[ProductList.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/product/components/ProductList.vue)
+[ProductList.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/home/components/ProductList.vue)
 
 ## 函数及调用接口
 当前页面使用了vue.js
 
-[Home.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/home/Home.vue)
+[Home.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/home/Home.vue)
 
-在Vue页面创建 `created` 时调用 [getHomeData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/views/home/Home.vue#L96) 获取到页面的banner跟商品列表数据后并渲染到页面上
+在Vue页面创建 `created` 时调用 [getHomeData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/home/Home.vue#L94) 获取到页面的banner跟商品列表数据后并渲染到页面上
 
-`getHomeData`是通过[Home接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-pc/blob/master/src/api/urls.js#L22)获取数据
+`getHomeData`是通过[Home接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/api/urls.js#L22)获取数据
 
 ## 功能介绍
 
