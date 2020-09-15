@@ -18,7 +18,7 @@
 
 ## 页面展示
 
-![image](./images/login_pc.jpg)
+![image](./images/login.png)
 
 ## 函数及调用接口
 当前页面使用了vue.js
@@ -27,7 +27,7 @@
 
 
 ### 如图所示 `1` 登录按钮
-- 当用户点击”登录“按钮后将触发 [handleLogin()](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/login/Login.vue#L101)函数
+- 当用户点击”登录“按钮后将触发 [handleLogin()](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/login/Login.vue#L98)函数
 - 函数先进行对用户输入的用户名与密码进行前端核验，不符合条件前端有相应的错误提示。如果符合条件就请求[登录接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/api/urls.js#L7)进行登录
 - 如果用户输入的用户名或密码不正确，则显示接口返回的错误信息
 
