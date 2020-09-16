@@ -38,15 +38,11 @@ ruleForm: {
 ## 功能介绍
 
 ### 1、注册
-  - 点击此按钮调用[submitForm](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegconsumer.vue#L246)函数对用户输入的所有字段进行验证
+  - 点击此按钮调用[submitForm](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegconsumer.vue#L251)函数对用户输入的所有字段进行验证
 
-  - 如果全部正确则通过调用[_postRegconsumer](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegconsumer.vue#L264)函数进行注册消费者
+  - 如果全部正确则通过调用[_postRegconsumer](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegconsumer.vue#L261)函数进行注册消费者
 
 ## 消费者注册成功
-
-页面展示
-
-![image](./images/regsuccess.png)
 
 消费者注册成功后会自动跳转到注册成功页，系统会根据用户注册返回的帐号和用户的密码自动帮助用户进行登录。当前页面将显示用户的`消费者帐号`。用户需要记住自己的帐号，方便下一次登录系统。
 
