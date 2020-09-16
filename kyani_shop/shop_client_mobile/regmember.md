@@ -1,8 +1,8 @@
-# 会员注册
+# 会员注册模块
 
 <!-- TOC -->
 
-- [会员注册](#会员注册)
+- [会员注册模块](#会员注册模块)
   - [注册流程](#注册流程)
   - [页面展示 - 步骤一](#页面展示---步骤一)
   - [页面初始化](#页面初始化)
@@ -16,6 +16,7 @@
     - [立即结算](#立即结算)
 
 <!-- /TOC -->
+
 
 ## 注册流程
 ![image](./images/process_reg.jpg)
@@ -97,26 +98,23 @@ created() {
   this.initUserDealer()  // 初始化会员数据
 },
 ```
+
 ## 功能介绍
 
 ### 1、下一步
-  - 点击此按钮调用[submitForm](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegmember.vue#L362)函数对用户输入的所有字段进行验证
+  - 点击此按钮调用[submitForm](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegmember.vue#L399)函数对用户输入的所有字段进行验证
 
-  - 如果全部正确则通过调用[_checkDealerReg](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegmember.vue#L375)验证用户输入的信息，接口用的是[CheckDealerReg](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/api/urls.js#L18)，信息正确页面自动跳到下一步的`选购加入套组`
+  - 如果全部正确则通过调用[_checkDealerReg](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegmember.vue#L426)验证用户输入的信息，接口用的是[CheckDealerReg](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/api/urls.js#L18)，信息正确页面自动跳到下一步的`选购加入套组`
   
-  - 验证完成后将数据保存到本地`Session Storage`和`Vuex`,执行的函数是[_saveAccountLocal](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegmember.vue#L447)。保存好数据，这样其它页面就可以共用数据。
+  - 验证完成后将数据保存到本地`Session Storage`和`Vuex`,执行的函数是[_saveAccountLocal](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegmember.vue#L479)。保存好数据，这样其它页面就可以共用数据。
 
 ## 选择套组
 
 当前模块代码位于[AccountRegselectpack.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegselectpack.vue)
 
-页面展示
+在页面创建时生命周期`created`调用函数[getGroupReg](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegselectpack.vue#L48)获取套组列表数据后并渲染到页面上
 
-![image](./images/regmember_step2.png)
-
-在页面创建时生命周期`created`调用函数[getGroupReg](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegselectpack.vue#L92)获取套组列表数据后并渲染到页面上
-
-点击`选择此套组`按钮调用函数[handleSelectBtn](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegselectpack.vue#L108)选取后会跳转到订单结算页
+点击`选择此套组`按钮调用函数[handleSelectPack](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegselectpack.vue#L70)选取后会跳转到订单结算页
 
 想更改当前选择的套组，直接切换自己想要购买的套组即可
 
@@ -127,28 +125,23 @@ created() {
 ### 引用组件
 
 ```js
-  import KyOrderLayout from '@/components/business/KyOrderLayout'
-  import KyOrderside from '@/components/business/KyOrderside'
-  import KyDeliveryOrder from '@/components/business/KyDeliveryOrder'
-  import KySuitInfo from '@/components/business/KySuitInfo'
+import RegSteps from './components/RegSteps'
+import PackItem from './components/PackItem'
+import RegTitle from './components/RegTitle'
+import KyDeliveryOrder from '@/components/business/KyDeliveryOrder'
 ```
-
-页面展示
-![image](./images/regmember_step3_1.png)
-![image](./images/regmember_step3_2.png)
-
 
 确认订单及填写收货地址主要有`订购人信息`、`收货信息`和`立即结算按钮`
 
-当面页面需要通过调用函数[getCartOrderData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegorder.vue#L717)获取获取订单数据
+当面页面需要通过调用函数[getCartOrderData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegorder.vue#L417)获取获取订单数据
 
 这些所有的资料都是在用户输入的表单自动生成的，如用户需要更改信息，可在当前页面进行修改即可。最终提交的资料会以当前页面的为准。
 
 
 ### 订购人信息
-函数[getCartOrderData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegorder.vue#L717)获取获取订单数据，会返回订购人年额度已用免税金额，利用这个金额跟年额度提示信息可在页面显示当前订购人的已用免税金额。
+函数[getCartOrderData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegorder.vue#L417)获取获取订单数据，会返回订购人年额度已用免税金额，利用这个金额跟年额度提示信息可在页面显示当前订购人的已用免税金额。
 
-用户需要更改订购人信息，直接在当面表单直接修改即可，修改完会调用[checkYearAmount](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegorder.vue#L540)函数实时去验证用户所填的订购人是否满足年额度需求
+用户需要更改订购人信息，直接在当面表单直接修改即可，修改完会调用[checkYearAmount](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegorder.vue#L489)函数实时去验证用户所填的订购人是否满足年额度需求
 
 ### 收货信息
 收货信息是根据用户在第一步表单提交时自动生成的数据。页面定义数据如下：
@@ -170,6 +163,6 @@ receiptRuleForm: {
 
 ### 立即结算
 
-在页面的右侧可以看到用户选择当前套组的价格信息，在最右下角有一个`立即结算`按钮，立即结算按钮将触发[handleSettleNow](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegorder.vue#L795)函数，该函数将用户的信息整理好并按照一定的格式提交到后台接口,api用的是[UserDealer](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/api/urls.js#L9),当接口返回成功的数据后，自动帮助用户登录、清空用户填写的资料。并跳转到支付网关让用户进行支付
+在页面的右侧可以看到用户选择当前套组的价格信息，在最右下角有一个`立即结算`按钮，立即结算按钮将触发[handleBtnSettleNow](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/account/AccountRegorder.vue#L542)函数，该函数将用户的信息整理好并按照一定的格式提交到后台接口,api用的是[UserDealer](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/api/urls.js#L9),当接口返回成功的数据后，自动帮助用户登录、清空用户填写的资料。并跳转到支付网关让用户进行支付
 
 用户支付完成或未完成都会返回支付结果页，在支付结果页可以看到自己的用户帐号和支付金额等信息
