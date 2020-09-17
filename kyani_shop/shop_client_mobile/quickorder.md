@@ -21,7 +21,8 @@
 <!-- /TOC -->
 
 ## 页面展示
-
+![image](./images/quickorder_1.png)
+![image](./images/quickorder_2.png)
 
 ## Components
 [KyOrderside.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/components/business/KyOrderside/index.vue)
