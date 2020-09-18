@@ -20,17 +20,12 @@
 
 ## 函数及调用接口
 
-我的订单列表页需要用户新的布局方式`LayoutUser`，在vue-router里面设置如下：
-
-左侧的导航布局包含在`LayoutUser`里面
+路由定义
 
 ```js
-import LayoutUser from '../views/layout/LayoutUser'
-
-export const constantRouterMap = [
-  {
+{
     path: '/user',
-    component: LayoutUser,
+    component: Layout,
     redirect: '/user/index',
     children: [{
       path: 'index',
@@ -38,20 +33,16 @@ export const constantRouterMap = [
       component: () => import('@/views/user/UserIndex'),
       meta: {
         requireAuth: true,
-        title: '会员中心首页'
+        title: '我的'
       }
     },
-    {
-      ...
-    }
-  }
-]
+}
 ```
 
 [UserOrder.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserOrder.vue)
 
 在Vue页面 `methods` 生命周期钩子时分别调用以下几个函数：
-- [getList](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserOrder.vue#L285) 获取到当前用户订单的数据后并渲染到页面上。
+- [getList](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserOrder.vue#L158) 获取到当前用户订单的数据后并渲染到页面上。
 
 初始化定义如下
 ```js
@@ -78,11 +69,13 @@ mounted() {
   - 状态会根据api返回的数据根据规则显示不同的状态，在前端页面的判断如下。
 
   ```html
-    <el-button plain v-if="item.permitPayment" type="danger" @click="handlePayAgain(item.number)">&nbsp;去支付&nbsp;</el-button>
-    <el-button plain v-if="item.permitCancel" @click="handleCancelType(item.number)">取消订单</el-button>
-    <el-button plain type="primary" v-if="item.permitRefund" @click="handleGoPage('/user/refund', item.number)">申请退款</el-button>
-    <el-button type="primary" v-if="item.permitRefundDetail"  @click="handleGoPage('/user/refundview', item.number)">退款详情</el-button>
-    <el-button plain type="primary" v-if="item.permitReturnGoods"  @click="handleGoPage('/user/return', item.number)">申请退货</el-button>
-    <el-button type="primary" v-if="item.permitReturnGoodsDetail"  @click="handleGoPage('/user/returnview', item.number)">退货详情</el-button>
-    <el-button type="primary" plain v-if="item.permitReOrder"  @click="handleGoPageReorder('/account/regmember?reorder=true')">重新下单</el-button>
-  ```
+    <div class="header-status" v-if="!(!item.permitCancel && !item.permitPayment && !item.permitRefund && !item.permitRefundDetail && !item.permitReturnGoods && !item.permitReturnGoodsDetail)">
+    <van-button class="btn-item" plain size="small" v-if="item.permitPayment" type="danger" @click="handlePayAgain(item.number)">&nbsp;去支付&nbsp;</van-button>
+    <van-button class="btn-item" plain size="small" v-if="item.permitCancel" @click="handleCancelType(item.number)">取消订单</van-button>
+    <van-button class="btn-item" type="primary" size="small" v-if="item.permitRefund" @click="handleGoPage('/user/refund', item.number)">申请退款</van-button>
+    <van-button class="btn-item" type="primary" size="small" v-if="item.permitRefundDetail"  @click="handleGoPage('/user/refundview', item.number)">退款详情</van-button>
+    <van-button class="btn-item" type="primary" size="small" v-if="item.permitReturnGoods"  @click="handleGoPage('/user/return', item.number)">申请退货</van-button>
+    <van-button class="btn-item" type="primary" size="small" v-if="item.permitReturnGoodsDetail"  @click="handleGoPage('/user/returnview', item.number)">退货详情</van-button>
+    <van-button class="btn-item" type="primary" plain size="small" v-if="item.permitReOrder"  @click="handleGoPageReorder('/account/regmember?reorder=true')">重新下单</van-button>
+  </div>
+```

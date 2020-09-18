@@ -19,6 +19,8 @@
 
 ## 函数及调用接口
 
+路由定义
+
 ```js
 {
     path: '/user',
@@ -34,6 +36,7 @@
       }
     },
 }
+```
 ```
 
 [UserBasicinfo.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserBasicinfo.vue)
