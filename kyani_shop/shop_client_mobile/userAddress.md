@@ -4,6 +4,7 @@
 
 目前限制用户只能增加8条收货地址。
 
+
 <!-- TOC -->
 
 - [收货地址管理模块](#收货地址管理模块)
@@ -20,47 +21,44 @@
 
 ![image](./images/userAddress.png)
 
+
 ## 函数及调用接口
 
-我的订单列表页需要用户新的布局方式`LayoutUser`，在vue-router里面设置如下：
-
-左侧的导航布局包含在`LayoutUser`里面
+路由定义
 
 ```js
-import LayoutUser from '../views/layout/LayoutUser'
-
-export const constantRouterMap = [
-  {
+{
     path: '/user',
-    component: LayoutUser,
+    component: Layout,
     redirect: '/user/index',
     children: [{
-      path: 'address',
-      name: 'UserAddress',
-      component: () => import('@/views/user/UserAddress'),
+      path: 'index',
+      name: 'UserIndex',
+      component: () => import('@/views/user/UserIndex'),
       meta: {
         requireAuth: true,
-        title: '收货地址'
+        title: '我的'
       }
     },
-    {
-      ...
-    }
-  }
-]
+}
 ```
 
 [UserAddress.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserAddress.vue)
 
 在Vue页面 `methods` 生命周期钩子时分别调用以下几个函数：
-- [getAddressList](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserAddress.vue#L84) 获取到当前用户收货地址的数据后并渲染到页面上。
+- [getAddressList](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserAddress.vue#L109) 获取到当前用户收货地址的数据后并渲染到页面上。
 
 `getAddressList`是通过[getAddressList接口](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/api/urls.js#L26)获取数据
+
+引入组件
+```js
+import AddressActionsheet from '@/components/business/AddressActionsheet'
+```
 
 ## 功能介绍
 
 ### 添加新地址
-  - 添加地址将调用[handleNewAddress](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserAddress.vue#L96)函数,调起 `kyAddressDialog` 组件弹出层，初始化定义如下：
+  - 添加地址将调用[handleNewAddress](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserAddress.vue#L129)函数,调起 `kyAddressDialog` 组件弹出层，初始化定义如下：
 
   ```js
   const initAddressData = {
@@ -78,7 +76,8 @@ export const constantRouterMap = [
   - 根据页面的提交填写完所有信息，点击保存验证通过即可添加地址成功
 
 ### 修改地址
-   - 修改地址将调用[handleEtidAddress](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserAddress.vue#L113)函数,调起 `kyAddressDialog` 组件弹出层，进行内容编辑。填写完按保存按钮即可
+   - 修改地址将调用[handleEtidAddress](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserAddress.vue#L156)函数,调起 `kyAddressDialog` 组件弹出层，进行内容编辑。填写完按保存按钮即可
   
 ### 删除地址
-   - 删除地址将调用[handleDeleteAddress](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserAddress.vue#L142)函数,需要传入当前需要删除的地址id，函数会询问是否确定要删除地址。确实后将进行地址删除
+   - 删除地址将调用[handleDeleteAddress](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserAddress.vue#L185)函数,需要传入当前需要删除的地址id，函数会询问是否确定要删除地址。确实后将进行地址删除
+  
