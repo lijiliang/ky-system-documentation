@@ -19,38 +19,28 @@
 
 ## 函数及调用接口
 
-用户中心页面需要用户新的布局方式`LayoutUser`，在vue-router里面设置如下：
-
-左侧的导航布局包含在`LayoutUser`里面
-
 ```js
-import LayoutUser from '../views/layout/LayoutUser'
-
-export const constantRouterMap = [
-  {
+{
     path: '/user',
-    component: LayoutUser,
+    component: Layout,
     redirect: '/user/index',
     children: [{
       path: 'index',
-      name: 'UserBasicinfo',
-      component: () => import('@/views/user/UserBasicinfo'),
+      name: 'UserIndex',
+      component: () => import('@/views/user/UserIndex'),
       meta: {
         requireAuth: true,
-        title: '帐户信息'
+        title: '我的'
       }
     },
-    {
-      ...
-    }
-  }
-]
+}
 ```
 
 [UserBasicinfo.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserBasicinfo.vue)
 
 在Vue页面 `mounted` 生命周期钩子时分别调用以下几个函数：
-- [getData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserBasicinfo.vue#L66) 获取到当前用户信息的数据后并渲染到页面上。
+
+- [getData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserBasicinfo.vue#L145) 获取到当前用户信息的数据后并渲染到页面上。
 
 - 用户信息通过调用[getData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserBasicinfo.vue#L102) 获取到当前用户信息的数据并显示在到页面上。
 
@@ -58,4 +48,5 @@ export const constantRouterMap = [
 
 - 能修改的用户信息有： 性别、身份证号码、所在地、详细地址
 - 直接在页面上填写好需要修改的信息，然后接`提交`按钮，即可以修改用户信息
-- `提交`按钮将调用 [submitForm]()(https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserBasicinfo.vue#L130) 函数 
+
+- `提交`按钮将调用 [submitForm](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserBasicinfo.vue#L182) 函数 
