@@ -2,6 +2,7 @@
 
 帐户安全可以保障账户及资金安全，用户可以进行登录密码的修改，邮箱验证和手机验证
 
+
 <!-- TOC -->
 
 - [帐户安全模块](#帐户安全模块)
@@ -19,38 +20,29 @@
 
 ## 函数及调用接口
 
-用户中心页面需要用户新的布局方式`LayoutUser`，在vue-router里面设置如下：
-
-左侧的导航布局包含在`LayoutUser`里面
+路由定义
 
 ```js
-import LayoutUser from '../views/layout/LayoutUser'
-
-export const constantRouterMap = [
-  {
+{
     path: '/user',
-    component: LayoutUser,
+    component: Layout,
     redirect: '/user/index',
     children: [{
-      path: 'safety',
-      name: 'UserSafety',
-      component: () => import('@/views/user/UserSafety'),
+      path: 'index',
+      name: 'UserIndex',
+      component: () => import('@/views/user/UserIndex'),
       meta: {
         requireAuth: true,
-        title: '帐户安全'
+        title: '我的'
       }
     },
-    {
-      ...
-    }
-  }
-]
+}
 ```
 
 [UserSafety.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserSafety.vue)
 
 在Vue页面 `mounted` 生命周期钩子时分别调用以下几个函数：
-- [getData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserSafety.vue#L66) 获取到当前用户信息的数据后并渲染到页面上。
+- [getData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserSafety.vue#L37) 获取到当前用户信息的数据后并渲染到页面上。
 
 
 ## 功能介绍
