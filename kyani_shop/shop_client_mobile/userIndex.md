@@ -12,7 +12,7 @@
   - [页面展示](#页面展示)
   - [函数及调用接口](#函数及调用接口)
     - [用户信息](#用户信息)
-    - [我的订单](#我的订单)
+    - [全部订单](#全部订单)
 
 <!-- /TOC -->
 
@@ -27,12 +27,9 @@
 左侧的导航布局包含在`LayoutUser`里面
 
 ```js
-import LayoutUser from '../views/layout/LayoutUser'
-
-export const constantRouterMap = [
-  {
+{
     path: '/user',
-    component: LayoutUser,
+    component: Layout,
     redirect: '/user/index',
     children: [{
       path: 'index',
@@ -40,26 +37,22 @@ export const constantRouterMap = [
       component: () => import('@/views/user/UserIndex'),
       meta: {
         requireAuth: true,
-        title: '会员中心首页'
+        title: '我的'
       }
     },
-    {
-      ...
-    }
-  }
-]
+}
 ```
 
 [UserIndex.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserIndex.vue)
 
 在Vue页面 `mounted` 生命周期钩子时分别调用以下几个函数：
-- [getData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserIndex.vue#L66) 获取到当前用户信息的数据后并渲染到页面上。
+- [getData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserIndex.vue#L68) 获取到当前用户信息的数据后并渲染到页面上。
 
 用户中心页能显示`用户信息`和`我的订单`
 
 ### 用户信息
 - 用户信息通过调用[getData](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/user/UserIndex.vue#L66) 获取到当前用户信息的数据并显示在到页面上。
-- 主要显示的信息有：会员号、身份证号、名字、手机号和邮箱
+- 主要显示的信息有：会员号、会员类型
 
-### 我的订单
+### 全部订单
 - 我的订单主要是快捷链接到订单列表页，主要有：待处理、已完成、已取消、已退单的各订单状态的订单列表页。
