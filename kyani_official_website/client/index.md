@@ -13,6 +13,7 @@ kyani官网显示了banner、最新消息、热销产品、公司动向、文章
   - [前端模块](#前端模块)
     - [view层](#view层)
     - [前端页面效果](#前端页面效果)
+    - [style (样式)](#style-样式)
 
 <!-- /TOC -->
 
@@ -249,3 +250,6 @@ $(document).ready(function(){
 页面js在开发环境下会经过webpack编译自动引入到页面中
 
 在正式环境下直接引用webpack编译好的文件
+
+### style (样式)
+style文件是基于scss编写，当前模块代码位于 `web/style/index.scss`
