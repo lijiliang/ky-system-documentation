@@ -11,6 +11,8 @@ kyani官网显示了banner、最新消息、热销产品、公司动向、文章
     - [服务（Service）](#服务service)
     - [控制器（Controller）](#控制器controller)
   - [前端模块](#前端模块)
+    - [view层](#view层)
+    - [前端页面效果](#前端页面效果)
 
 <!-- /TOC -->
 
@@ -133,3 +135,117 @@ const index = async (ctx, _next) => {
 ```
 
 ## 前端模块
+
+### view层
+
+view层就是页面的展示，外界传入对应的模型数据给view，view拿到模型数据后给内部的子控件设置对应的数据
+
+view是前端页面的显示层，文件位于 `server/view/page/index.hbs`
+
+以下的是新建一个页面的 layout ，layout包含了公共头尾部及公共js的引用，只需要在index.hbs页面上写上以下代码即可显示一个页面的基础信息。剩下的就是通过传数据，然后通过hbs的语法结构去展现数据即可
+
+```hbs
+{{#extend "layout-example"}}
+    {{#content "head"}}
+        {{!-- {{{parseUrl 'example.css'}}} --}}
+    {{/content}}
+    {{#content "body"}}
+      {{!-- 这里是页面的主体结构 --}}
+      
+      ...
+
+      <!-- Slides -->
+      {{#each homeBanner}}
+      <div class="swiper-slide swiper-item">
+        {{#if url}}
+          <a href="{{url}}">
+        {{/if}}
+          <img src="{{picPath}}" alt="{{title}}">
+          <div class="swiper-item-text">
+            <p class="ani" swiper-animate-effect="fadeInDown" swiper-animate-duration="0.5s" swiper-animate-delay="0.3s">{{title}}</p>
+          </div>
+        {{#if url}}
+          </a>
+        {{/if}}
+      </div>
+      {{/each}}
+
+      ...
+      
+    {{/content}}
+    {{#content 'js'}}
+      {{{parseUrl 'home.js'}}}
+    {{/content}}
+{{/extend}}
+
+```
+
+### 前端页面效果
+前端页面效果代码位于 web  目录下，当前模块的代码位于`web/page/home/index.js` ，页面效果代码主要基于jquery编写
+
+```js
+$(document).ready(function(){
+  $('.animate').scrolla({
+    mobile: false,
+    once: false
+  });
+
+  var mySwiper = new Swiper ('.swiper-container', {
+    // Navigation arrows
+    on:{
+      init: function(){
+        swiperAnimateCache(this); //隐藏动画元素 
+        swiperAnimate(this); //初始化完成开始动画
+      }, 
+      slideChangeTransitionEnd: function(){ 
+        swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+      } 
+    },
+    autoplay: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  })
+
+  // 热销产品hover
+  var hotProductsItem = $('.hot-products-con');
+  hotProductsItem.hover(function(){
+    $(this).addClass('hover').siblings().removeClass('hover')
+  }, function(){
+    $(this).removeClass('hover')
+  })
+
+  // 收起与显示更多最新消息
+  var messageList = $('.message-list')
+  var messageItem = $('.message-list').find('.message-item')
+  var pagesize = 5; // 默认显示6个,从0开始计数
+  messageList.find(".message-item:gt("+pagesize+")").hide();
+
+  var moreInfo = "<div class='showMorehandle'><span>显示更多</span></div>"
+  if (messageItem.length > 6) {
+    $(moreInfo).insertAfter(messageList);
+    $('.showMorehandle').click(function () { 
+      var hasCurrent = $(this).hasClass('current')
+      if(!hasCurrent) {
+        $(this).addClass('current')
+        messageList.find(".message-item:gt("+pagesize+")").show();
+        $(this).find('span').text('收起更多')
+      } else {
+        $(this).removeClass('current')
+        messageList.find(".message-item:gt("+pagesize+")").hide();
+        $(this).find('span').text('显示更多')
+      }
+    }); 
+  }
+
+});
+```
+
+页面js在开发环境下会经过webpack编译自动引入到页面中
+
+在正式环境下直接引用webpack编译好的文件
