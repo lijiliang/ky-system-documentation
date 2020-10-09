@@ -24,13 +24,20 @@
 Router 主要用来描述请求 URL 和具体承担执行动作的 Controller 的对应关系
 Router 文件必须放在 server/router 目录,系统会自动读取路由文件
 
-当前控制器文件位置在 `server/router/home/home.js`
+当前控制器文件位置在 `server/router/news/news.js`
 
 ```js
-const homeCtrl = require('../../controller/home/home');
+// 最新消息模块
+const newsCtrl = require('../../controller/news/news');
 module.exports.default = module.exports = [
-    {path: 'page/:id', ctrl: homeCtrl.page},
-    ...
+    {path: 'video/:id', ctrl: newsCtrl.video}, // 公司动向、视频
+    {path: 'vshow/:id', ctrl: newsCtrl.videoDetails},
+    {path: 'promotion/:id', ctrl: newsCtrl.promotion}, // 推广优惠
+    {path: 'pshow/:id', ctrl: newsCtrl.promotionDetails},
+    {path: 'event/:id', ctrl: newsCtrl.event}, // 活动咨询
+    {path: 'eshow/:id', ctrl: newsCtrl.eventDetails},
+    {path: 'share/:id', ctrl: newsCtrl.share}, // 文章分享
+    {path: 'sshow/:id', ctrl: newsCtrl.shareDetails},
 ];
 
 ```
@@ -87,38 +94,57 @@ Controller 层主要对用户的请求参数进行处理（校验、转换），
 
 所有的 Controller 文件都必须放在 server/controller 目录下
 
-当前控制器文件位置在 `server/controller/home/home.js`
+当前控制器文件位置在 `server/controller/news/news.js`
 
 控制器主要的代码如下：
 ```js
-//单页页
-const page = async (ctx, _next) => {
+// 推广优惠列表页
+const promotion = async (ctx, _next) => {
     const _id = ctx.params.id
+    const listId = _id.split('-') // 栏目id和页码
+    let channelId = listId[0]; // 栏目Id
+    let limit = config.defaultLimit; // 一页多少条数据
+    let pageNum = listId[1] ? listId[1] : 1;
     let getAll = async () => {
         const all = await Promise.all([
-            homeServer.getDetails(_id)
+            newsServer.getList(channelId, limit, pageNum)
         ]).catch(ex => console.log(ex))
-        return {details: all[0]}
+        return {listData: all[0]}
     }
 
     let locals = {}
     try{
         const {topNav, bottomNav} = await getNavData();
-        const { details } = await getAll();
-        const content = details.data.data
-        // 没有内容输出，直接跳到错误页
-        if (!content) {
+        const { listData } = await getAll();
+        const _channel = listData.data.data.channel; // 面包屑
+        const _listData = listData.data.data.list;
+        // 根据路由的定义，不是promotion，直接跳到错误页
+        if (_channel.route !== 'promotion') {
             ctx.redirect("/404.html")
         }
+        // 列表分页数据
+        const _pagination = {
+            route: _channel.route,
+            channelId: _channel.id,
+            pageNum: _listData.pageNum, // 当前第几页
+            pageSize: _listData.pageSize, // 一页多少和数据
+            pages: _listData.pages, // 总共多少条
+            total: _listData.total,  // 总页数
+            isFirstPage: _listData.isFirstPage,  // 是否第一条数据
+            isLastPage: _listData.isLastPage // 是否最后一条数据
+        }
+
         locals = {
             topNav:  topNav.data.data,
             bottomNav: bottomNav.data.data,
-            title: content.title,
-            metaTitle: content.metaTitle,
-            metaKeywords: content.metaKeywords,
-            metaDescription: content.metaDescription,
-            content: content,
-            crumbs: content.channel, // 面包屑
+            title: _channel.name,
+            metaTitle: _channel.metaTitle,
+            metaKeywords: _channel.metaKeywords,
+            metaDescription: _channel.metaDescription,
+            picPath: _channel.picPath,
+            crumbs: _channel,
+            list: _listData,
+            pagination: _pagination, // 分页数据
         }
     }catch(e) {
         locals = {
@@ -126,8 +152,9 @@ const page = async (ctx, _next) => {
         }
     }
     
-    await ctx.render('page/page', locals)
+    await ctx.render('page/news/promotion', locals)
 }
+
 ```
 
 ## 前端模块
@@ -136,7 +163,7 @@ const page = async (ctx, _next) => {
 
 view层就是页面的展示，外界传入对应的模型数据给view，view拿到模型数据后给内部的子控件设置对应的数据
 
-view是前端页面的显示层，文件位于 `server/view/page/page.hbs`
+view是前端页面的显示层，文件位于 `server/view/page/news` 目录下
 
 以下的是新建一个页面的 layout ，layout包含了公共头尾部及公共js的引用，只需要在index.hbs页面上写上以下代码即可显示一个页面的基础信息。剩下的就是通过传数据，然后通过hbs的语法结构去展现数据即可
 
@@ -183,4 +210,4 @@ view是前端页面的显示层，文件位于 `server/view/page/page.hbs`
 在正式环境下直接引用webpack编译好的文件
 
 ### style (样式)
-style文件是基于scss编写，当前模块代码位于 `web/style/pages` 目录下
+style文件是基于scss编写，当前模块代码位于 `web/style/news` 目录下
