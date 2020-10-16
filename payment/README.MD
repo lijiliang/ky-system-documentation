@@ -1,13 +1,14 @@
 # 支付收银台说明文档
 
- Payment gateway 是StarsPower里的其中一个模块，是管理支付业务的模块。项目集成了Swagger实现在线API文档的功能。
-
-Swagger的在线API文档的功能在开发环境和测试环境可访问，方便开发人员查看与测试，而在正式环境是禁止访问的。
-`http://127.0.0.1:8010/swagger-ui.html`
-
+ Payment gateway 是StarsPower里的其中一个模块，是管理支付供应商、支付工具，商城收银台业务的模块。
 
 - [项目部署](./deployment.md)
-- [APIS](./payment_light_API.md)
+- [ViewControllers](./viewControllers.md)
+- [APIs](./APIs.md)
+- [支付工具管理](./paymentInstrument.md)
+- [支付供应商管理](./paymentSupplier.md)
+- [支付分配设置](./paymentSetting.md)
+- [新供应商接入流程]
   
 
 ## 业务流程图
