@@ -8,7 +8,8 @@
 - [支付工具管理](./paymentInstrument.md)
 - [支付供应商管理](./paymentSupplier.md)
 - [支付分配设置](./paymentSetting.md)
-- [新供应商接入流程]
+- [新供应商接入流程](./addSupplier.md)
+- [收银台展示](./checkout.md)
   
 
 ## 业务流程图
