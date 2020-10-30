@@ -1,5 +1,4 @@
 # 系统架构
-Stars power是基于Spring Boot开发的综合管理平台。它是所有China system的基石，用于管理和展示数据来源。
 
 ## 目录结构
 ``` 
