@@ -37,6 +37,16 @@ sleep 1s
 sudo tar -zcvf ../shop_pc_clinet.zip *
 ```
 
+SSH Publishers
+```
+sudo mkdir /data/www
+sudo mkdir /data/www/shop_pc_clinet
+sudo tar -xvf /home/centos/release/shop_pc_clinet/shop_pc_clinet.zip -C  /data/www/shop_pc_clinet/
+sudo chmod 777 /data/www/shop_pc_clinet/bin/run-prod.sh
+sudo chmod 777 /data/www/shop_pc_clinet/bin/docker-run-prod.sh
+sudo sh /data/www/shop_pc_clinet/bin/docker-run-prod.sh
+```
+
 ## 商城Mobile部署
 商城的是基于vue开发,脚手架用vue-cli
 
@@ -71,4 +81,14 @@ npm run prod-build
 cd ./dist/ 
 sleep 1s
 sudo tar -zcvf ../shop_mobile_clinet.zip *
+```
+
+SSH Publishers
+```
+sudo mkdir /data/www
+sudo mkdir /data/www/shop_mobile_clinet
+sudo tar -xvf /home/centos/release/shop_mobile_clinet/shop_mobile_clinet.zip -C  /data/www/shop_mobile_clinet/
+sudo chmod 777 /data/www/shop_mobile_clinet/bin/run-prod.sh
+sudo chmod 777 /data/www/shop_mobile_clinet/bin/docker-run-prod.sh
+sudo sh /data/www/shop_mobile_clinet/bin/docker-run-prod.sh
 ```
