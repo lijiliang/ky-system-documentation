@@ -20,7 +20,7 @@
 
 ## 页面展示
 
-![image](./images/order.png)
+![image](./images/order_1.png)
 
 ## Components
 [KyOrderside.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/components/business/KyOrderside/index.vue)
@@ -51,7 +51,7 @@ import kyAddressDialog from '@/components/business/kyAddressDialog'
 ## 功能介绍
 
 ### 1、订购人信息
- 
+
 - 订购人信息是需要跨镜商品才会显示出来。这里可以修改订购人的信息，修改完会实时验证并显示当前订购人所剩余的年额度
 
   需要定义订购人显示的一些基本信息
@@ -63,13 +63,13 @@ import kyAddressDialog from '@/components/business/kyAddressDialog'
       }
     }
   ```
-  
+
 - 验证订购人年度已用免税金额的函数是[checkYearAmount](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/views/cart/CartOrder.vue#L266)
 
 ### 2、收货人信息
   - 收货人信息默认会显示出当前用户的所有收货地址列表。也可以在这里进去添加地址、删除地址、修改地址
   - 默认会提示用户去选择收货地址，必须选择了收货地址才能提交订单
-  
+
 ### 3.送货清单
   - 送货清单个显示出所有商品的详情信息
   - 系统会将当前用户的订单自动拆单成不同订单类型并显示在页面上。
