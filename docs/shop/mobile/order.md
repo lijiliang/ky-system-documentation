@@ -20,7 +20,7 @@
 
 ## 页面展示
 
-![image](./images/order_2.png)
+![image](./images/order_1.png)
 
 ## Components
 [KyOrderside.vue](https://gitlab.kyani.cn/kyani-inc/kyani-shop-mobile/blob/master/src/components/business/KyOrderside/index.vue)
