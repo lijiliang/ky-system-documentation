@@ -29,7 +29,7 @@ npm install
 ```bash
 {
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "vue-cli-service serve",
   }
 }
 ```
@@ -37,11 +37,11 @@ npm install
 开发模式运行
 
 ``` bash
-# 开发环境 
-npm run dev 
+# 开发环境
+npm run dev
 ```
 
-当项目启动成功，打开浏览器输入`http://localhost:8990/`即可看到运行成功的项目
+当项目启动成功，打开浏览器输入`http://localhost:9912/`即可看到运行成功的项目
 
 
 ## 线上环境
@@ -51,7 +51,7 @@ npm run dev
 ```bash
 {
   "scripts": {
-    "build": "NODE_ENV=production env_config=prod node build/build.js",
+    "prod-build": "vue-cli-service build --mode production",
   }
 }
 ```
@@ -60,7 +60,7 @@ npm run dev
 
 ``` bash
 # 打包正式环境
-npm run build:prod
+npm run prod-build
 ```
 
 执行完以上命令后稍等一会，待命令执行完后会在当前文件夹下生成一个`dist`目录。`dist`就是线上环境运行所需要的所有文件了
@@ -69,7 +69,7 @@ npm run build:prod
 基于生成的`dist`目录，在本机装好nginx后，只需要配置`nginx.conf`文件指向到当前`dist`目录下重新启动下nginx即可
 
 `nginx.conf`的安装目录一般在 `/usr/local/nginx/conf/nginx.conf` 这个位置
- 
+
  ```nginx
 #user  nobody;
 worker_processes  1;
@@ -101,7 +101,7 @@ http {
        listen       localhost;
 
        location / {
-           root /data/www/shop_pc_clinet/;  // 这个目录的内容就是dist的，只不过是目录名不一样而已
+           root /data/www/shop_mobile_clinet/;  // 这个目录的内容就是dist的，只不过是目录名不一样而已
            index  index.html index.htm;
            try_files $uri $uri/ /index.html;  # 配置支持 History 模式
        }
@@ -165,7 +165,7 @@ http {
        listen       localhost;
 
        location / {
-           root /data/www/shop_pc_clinet/;
+           root /data/www/shop_mobile_clinet/;
            index  index.html index.htm;
            try_files $uri $uri/ /index.html;  # 配置支持 History 模式
        }
@@ -179,22 +179,26 @@ http {
 ```bash
 #!/usr/bin/env bash
 
-sudo docker stop shop_pc_clinet_7001
-sudo docker rm shop_pc_clinet_7001
-sudo docker run --privileged=true  -t -i -d -v /data:/data -p 7001:80  --name=shop_pc_clinet_7001  --network prodnet --ip 192.168.1.11 557111830783.dkr.ecr.cn-north-1.amazonaws.com.cn/os_nginx:latest /bin/bash -c "/data/www/shop_pc_clinet/bin/run-prod.sh"
+# 第一次构建时需要添加 ip 段
+#docker network create --subnet=192.168.1.0/24 prodnet #创建网络时指定 IP 段
+#docker network rm prodnet
+
+sudo docker stop shop_mobile_clinet_7000
+sudo docker rm shop_mobile_clinet_7000
+sudo docker run --privileged=true  -t -i -d -v /data:/data -p 7000:80  --name=shop_mobile_clinet_7000  --network prodnet --ip 192.168.1.10 557111830783.dkr.ecr.cn-north-1.amazonaws.com.cn/os_nginx:latest /bin/bash -c "/data/www/shop_mobile_clinet/bin/run-prod.sh"
 
 sudo docker stop kyani_shop_nginx_forwarding_80
 sudo docker rm kyani_shop_nginx_forwarding_80
-sudo docker run -t -i --name=kyani_shop_nginx_forwarding_80 --network prodnet --ip 192.168.1.8 -v /data/www/shop_pc_clinet/bin/conf.d:/etc/nginx/conf.d -p 80:80 -d docker.io/nginx:latest
+sudo docker run -t -i --name=kyani_shop_nginx_forwarding_80 --network prodnet --ip 192.168.1.8 -v /data/www/shop_mobile_clinet/bin/conf.d:/etc/nginx/conf.d -p 80:80 -d docker.io/nginx:latest
 
 ```
 
 `run-prod.sh` nginx启动服务脚本
 ```bash
 #!/usr/bin/env bash
-cd /data/www/shop_pc_clinet
+cd /data/www/shop_mobile_clinet
 #覆盖Nginx
-cp -rf /data/www/shop_pc_clinet/bin/nginx.prod.conf /usr/local/nginx/conf/nginx.conf
+cp -rf /data/www/shop_mobile_clinet/bin/nginx.prod.conf /usr/local/nginx/conf/nginx.conf
 /usr/local/nginx/sbin/nginx &
 /bin/bash
 
@@ -204,4 +208,4 @@ cp -rf /data/www/shop_pc_clinet/bin/nginx.prod.conf /usr/local/nginx/conf/nginx.
 
 最后附上详细的部署流程图
 
-![image](images/ci1.png)
+![image](./images/ci1.png)
