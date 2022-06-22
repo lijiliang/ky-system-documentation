@@ -6,6 +6,7 @@ export const en: NavbarConfig = [
     text: 'Stars',
     link: '/stars/',
     children: [
+      '/stars/system.md',
       {
         text: 'api',
         children: [
