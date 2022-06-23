@@ -15,6 +15,5 @@ Stars power是基于Spring Boot开发的综合管理平台。它是所有China s
   - [产品模块 - stars.power.product](./modules/product.md)
   - [优惠卷模块 - stars.power.market](./modules/coupon.md)
   - [物流模块 - stars.power.logistics](./modules/logistics.md)
-  - [CES模块 - stars.power.ces](./modules/ces.md)
   - [信息模块 - stars.power.message](./modules/message.md)
   - [自定义报表模块 - stars.power.report](./modules/report.md)

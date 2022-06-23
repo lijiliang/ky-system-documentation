@@ -54,15 +54,14 @@ cd /usr/local/nginx/sbin
 # 启动端口
 server.port=80
 # 数据库配置
-spring.datasource.url=jdbc:mysql://kstore.cquty2mjj1ug.rds.cn-north-1.amazonaws.com.cn:3306/kyani?useUnicode=true&characterEncoding=UTF-8&relaxAutoCommit=true&zeroDateTimeBehavior=convertToNull
+spring.datasource.url=jdbc:mysql://*** DB URL ***:3306/kyani?useUnicode=true&characterEncoding=UTF-8&relaxAutoCommit=true&zeroDateTimeBehavior=convertToNull
 spring.datasource.username=*** DB USER Name ***
 spring.datasource.password=*** DB USER PWD ***
 # Redis配置
-spring.redis.hostName=54.223.94.134
+spring.redis.hostName=*** Redis URL ***
 spring.redis.password=**** Redis PWD ****
 spring.redis.port=9779
-# 配置Ces API 
-ces.domain = https://kyani-ces-api-pro.cn-north-1.eb.amazonaws.com.cn
+
 ```
 ## 基于Maven项目打包
 ``` bash
