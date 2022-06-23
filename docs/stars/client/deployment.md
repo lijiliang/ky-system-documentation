@@ -1,5 +1,5 @@
-# 部署文档
-- [部署文档](#部署文档)
+# 客户端部署文档
+- [客户端部署文档](#客户端部署文档)
 	- [环境要求](#环境要求)
 	- [打包](#打包)
 	- [Nginx部署](#nginx部署)
@@ -13,7 +13,7 @@ Ruby
 ```
 http://rubyinstaller.org/downloads
 ```
-Sencha Cmd 6.2或以上 
+Sencha Cmd 6.2或以上
 ```
 https://www.sencha.com/products/extjs/cmd-download/
 ```
@@ -39,11 +39,11 @@ Ext.define("Kyani.stars.base.common.Config",{
 		defaultPrefix:"kyani_"
 
 	}
-}); 
+});
 ```
 ``` bash
-# build项目，成功后目录在代码目录下/build/production/stars 
-sencha app build 
+# build项目，成功后目录在代码目录下/build/production/stars
+sencha app build
 ```
 
 ## Nginx部署

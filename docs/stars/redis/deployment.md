@@ -1,6 +1,6 @@
-# Redis服务器
+# Redis服务器安装部署
 Stars-power需要依赖Redis，我们基于Docker创建Redis。
-- [Redis服务器](#redis服务器)
+- [Redis服务器安装部署](#redis服务器安装部署)
   - [安装Docker](#安装docker)
   - [安装并启动Reids](#安装并启动reids)
 

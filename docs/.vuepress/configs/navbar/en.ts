@@ -8,29 +8,18 @@ export const en: NavbarConfig = [
     children: [
       '/stars/system.md',
       {
-        text: 'api',
+        text: '系统部署',
         children: [
           '/stars/api/deployment.md',
+          '/stars/client/deployment.md',
+          '/stars/redis/deployment.md',
         ]
       },
       {
-        text: 'modules',
+        text: '功能与模块介绍',
         children: [
-          '/stars/modules/ces.md',
           '/stars/modules/common.md',
           '/stars/modules/core.md',
-        ]
-      },
-      {
-        text: 'redis',
-        children: [
-          '/stars/redis/deployment.md'
-        ]
-      },
-      {
-        text: 'client',
-        children: [
-          '/stars/client/deployment.md'
         ]
       }
     ]
@@ -106,37 +95,6 @@ export const en: NavbarConfig = [
     ],
   },
   {
-    text: '官网',
-    children: [
-      {
-        text: 'api',
-        children: [
-          {
-            text: '商城api说明文档',
-            link: '/website',
-          },
-          '/website/api/deployment.md',
-          '/website/api/officialsite_light_API.md'
-        ],
-      },
-      {
-        text: 'client',
-        children: [
-          {
-            text: '官网说明文档',
-            link: '/website/client',
-          },
-          '/website/client/system.md',
-          '/website/client/deploy.md',
-          '/website/client/home.md',
-          '/website/client/list.md',
-          '/website/client/newPage.md',
-          '/website/client/page.md',
-        ],
-      },
-    ],
-  },
-  {
     text: '支付系统',
     children: [
       {
@@ -151,16 +109,6 @@ export const en: NavbarConfig = [
       '/payment/paymentSetting.md',
       '/payment/paymentSupplier.md',
       '/payment/viewControllers.md'
-    ],
-  },
-  {
-    text: '库存系统',
-    children: [
-      {
-        text: '库存管理系统说明文档',
-        link: '/inventory',
-      },
-      '/inventory/business-design.md'
     ],
   },
 ]
